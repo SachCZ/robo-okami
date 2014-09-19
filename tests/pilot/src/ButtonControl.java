@@ -21,6 +21,7 @@ public class ButtonControl implements Behavior {
 		LCD.drawString("ESC - exit", 3, 3);
 		
 		if (Button.waitForAnyPress() == Button.ID_ESCAPE) {
+			// Rover.usSensor.turnOff(); This should turn the sensor off but it probably doesn't work
 			System.exit(0);
 		} else {
 			return;

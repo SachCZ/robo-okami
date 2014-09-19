@@ -26,7 +26,6 @@ public class Rover {
 	public static void main(String[] args) {
 		
 		rover = new DifferentialPilot(wheelDiameter, trackWidth, leftMotor, rightMotor, reverse);
-		rover.setAcceleration(50);
 		usSensor = new USSensor(port[0]);
 		
 		// usSensor.setDaemon(true);
