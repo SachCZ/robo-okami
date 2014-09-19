@@ -23,9 +23,9 @@ public class ObstacleDetection implements Behavior {
 	
 	@Override
 	public boolean takeControl() {
-		int distance = Rover.usSensor.getDistance();
+		float distance = Rover.usSensor.getDistance();
 		
-		if (distance < 50) {
+		if (distance < 0.4) {
 			return true;
 		} else {
 			return false;
@@ -44,8 +44,9 @@ public class ObstacleDetection implements Behavior {
 		LCD.drawString("ObstacleDetection", 1, 3);
 		LCD.drawString(String.valueOf(Rover.usSensor.getDistance()) + " far", 2, 4);
 		
-		Rover.rover.setTravelSpeed(0.02);
-		Rover.rover.backward();
+		// Not sure, if the rotation speed can be set
+		Rover.rover.setTravelSpeed(0.005);
+		Rover.rover.rotate(90);
 		
 		return;
 	}

@@ -1,13 +1,14 @@
 import lejos.hardware.port.Port;
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
+import lejos.utility.Delay;
 
 
 public class USSensor extends Thread {
 
 	Port sensorPort;
 	EV3UltrasonicSensor sensor;
-	int distance;
+	float distance;
 
 	USSensor(Port port) {
 		sensorPort = port;
@@ -24,12 +25,18 @@ public class USSensor extends Thread {
 		// TODO Maybe add some filter.
 		while(true) {
 			sampleProvider.fetchSample(sample, 0);
-			distance = (int) sample[0];
+			distance = (float) sample[0];
+			Delay.msDelay(50);
 		}
 	}
 
-	public int getDistance() {
+	public float getDistance() {
 		return distance;
+	}
+	
+	// Not sure, if this works
+	public void turnOff() {
+		sensor.close();
 	}
 
 }
