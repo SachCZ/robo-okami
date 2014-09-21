@@ -19,7 +19,7 @@ public class DriveControl implements Behavior {
 		
 		Button.LEDPattern(1);
 		
-		Robot.rover.setTravelSpeed(0.1);
+		Robot.rover.setTravelSpeed(0.2);
 		Robot.rover.forward();
 		
 		LCD.clear();
