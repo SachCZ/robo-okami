@@ -1,3 +1,6 @@
+// OBSOLETE
+
+
 import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
 
