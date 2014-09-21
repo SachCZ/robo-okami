@@ -8,7 +8,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
-
+//Fucking lejos
 public class Robot {
 
 	public static DifferentialPilot rover;
