@@ -19,8 +19,8 @@ public class DriveControl implements Behavior {
 		
 		Button.LEDPattern(1);
 		
-		Rover.rover.setTravelSpeed(0.2);
-		Rover.rover.forward();
+		Robot.rover.setTravelSpeed(0.2);
+		Robot.rover.forward();
 		
 		LCD.clear();
 		LCD.drawString("PILOT TEST 0.1", 2, 0);
@@ -36,7 +36,7 @@ public class DriveControl implements Behavior {
 	public void suppress() {
 		_suppressed = true;
 		
-		Rover.rover.stop();
+		Robot.rover.stop();
 	}
 
 }

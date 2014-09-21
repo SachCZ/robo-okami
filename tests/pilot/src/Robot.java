@@ -9,10 +9,11 @@ import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
 
-public class Rover {
+public class Robot {
 
 	public static DifferentialPilot rover;
 	public static USSensor usSensor;
+	public static ServoRotation servoRotation;
 
 	static Port[] port = {SensorPort.S1, SensorPort.S2, SensorPort.S3, SensorPort.S4};
 
@@ -27,9 +28,11 @@ public class Rover {
 		
 		rover = new DifferentialPilot(wheelDiameter, trackWidth, leftMotor, rightMotor, reverse);
 		usSensor = new USSensor(port[0]);
+		servoRotation = new ServoRotation();
 		
 		// usSensor.setDaemon(true);
 		usSensor.start();
+		servoRotation.start();
 		
 		Behavior drive = new DriveControl();
 		Behavior detect = new ObstacleDetection(1);

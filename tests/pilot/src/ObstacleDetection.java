@@ -23,7 +23,7 @@ public class ObstacleDetection implements Behavior {
 	
 	@Override
 	public boolean takeControl() {
-		float distance = Rover.usSensor.getDistance();
+		float distance = Robot.usSensor.getDistance();
 		
 		if (distance < 0.4) {
 			return true;
@@ -42,11 +42,11 @@ public class ObstacleDetection implements Behavior {
 		LCD.clear();
 		LCD.drawString("PILOT TEST 0.1", 2, 0);
 		LCD.drawString("ObstacleDetection", 1, 3);
-		LCD.drawString(String.valueOf(Rover.usSensor.getDistance()) + " far", 2, 4);
+		LCD.drawString(String.valueOf(Robot.usSensor.getDistance()) + " far", 2, 4);
 		
 		// Not sure, if the rotation speed can be set
-		Rover.rover.setTravelSpeed(0.005);
-		Rover.rover.rotate(90);
+		Robot.rover.setTravelSpeed(0.005);
+		Robot.rover.rotate(90);
 		
 		return;
 	}
@@ -55,7 +55,7 @@ public class ObstacleDetection implements Behavior {
 	public void suppress() {
 		_suppressed = true;
 		
-		Rover.rover.stop();
+		Robot.rover.stop();
 	}
 
 }
