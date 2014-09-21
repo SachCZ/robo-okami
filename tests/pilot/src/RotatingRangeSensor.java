@@ -23,7 +23,7 @@ public class RotatingRangeSensor extends Thread {
 
 	@Override
 	public void run() {
-		SampleProvider averageProvider = new MeanFilter(sensor.getDistanceMode(), 5);
+		SampleProvider averageProvider = sensor.getDistanceMode();
 		
 		while(true) {
 			float[] sample = new float[averageProvider.sampleSize()];
