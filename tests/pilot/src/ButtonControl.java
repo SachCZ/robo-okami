@@ -21,7 +21,7 @@ public class ButtonControl implements Behavior {
 		LCD.drawString("ESC - exit", 3, 3);
 		
 		if (Button.waitForAnyPress() == Button.ID_ESCAPE) {
-			Robot.usSensor.turnOff(); //This works now
+			Robot.rangeSensor.turnOff(); //This works now -- hopefully :)
 			System.exit(0);
 		} else {
 			return;
