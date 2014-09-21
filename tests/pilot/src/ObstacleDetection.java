@@ -22,8 +22,8 @@ public class ObstacleDetection implements Behavior {
 	}
 	
 	@Override
-	public boolean takeControl() {
-		float distance = Robot.usSensor.getDistance();
+	public boolean takeControl() { 
+		float distance = Robot.rangeSensor.getLastMinRangeAhead();
 		
 		if (distance < 0.4) {
 			return true;
@@ -35,14 +35,14 @@ public class ObstacleDetection implements Behavior {
 	@Override
 	public void action() {
 		_suppressed = false;
-		// IDEA The US sensor could turn to search for the best way.
+		// TODO Find the best way...
 
 		Button.LEDPattern(3);
 		
 		LCD.clear();
 		LCD.drawString("PILOT TEST 0.1", 2, 0);
 		LCD.drawString("ObstacleDetection", 1, 3);
-		LCD.drawString(String.valueOf(Robot.usSensor.getDistance()) + " far", 2, 4);
+		LCD.drawString(String.valueOf(Robot.rangeSensor.getLastMinRangeAhead()) + " m", 2, 4);
 		
 		// Not sure, if the rotation speed can be set
 		Robot.rover.setTravelSpeed(0.005);

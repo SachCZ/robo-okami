@@ -4,14 +4,17 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 import lejos.hardware.motor.Motor;
 import lejos.hardware.port.Port;
 import lejos.hardware.port.SensorPort;
+import lejos.hardware.sensor.EV3UltrasonicSensor;
+import lejos.robotics.RegulatedMotor;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
+//Fucking lejos
 public class Robot {
 
+	public static RotatingRangeSensor rangeSensor;
 	public static DifferentialPilot rover;
-	public static USSensor usSensor;
 	public static ServoRotation servoRotation;
 
 	static Port[] port = {SensorPort.S1, SensorPort.S2, SensorPort.S3, SensorPort.S4};
@@ -21,17 +24,19 @@ public class Robot {
 	static double trackWidth = 0.2; // distance from center of right and left tire
 	static BaseRegulatedMotor leftMotor = Motor.A;
 	static BaseRegulatedMotor rightMotor = Motor.B;
+	static RegulatedMotor servoMotor = Motor.C;
 	static boolean reverse = false; // switch backward/forward 
 
 	public static void main(String[] args) {
 		
 		rover = new DifferentialPilot(wheelDiameter, trackWidth, leftMotor, rightMotor, reverse);
-		usSensor = new USSensor(port[0]);
-		servoRotation = new ServoRotation();
+
+		rangeSensor = new RotatingRangeSensor(new EV3UltrasonicSensor(port[0]), servoMotor, -45, 45, 45);		
+		// rangeSensor.setDaemon(true);
+		rangeSensor.start();
 		
-		// usSensor.setDaemon(true);
-		usSensor.start();
-		servoRotation.start();
+		// OBSOLETE servoRotation = new ServoRotation();
+		// OBSOLETE servoRotation.start();
 		
 		Behavior drive = new DriveControl();
 		Behavior detect = new ObstacleDetection(1);
