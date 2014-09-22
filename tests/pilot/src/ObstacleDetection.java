@@ -1,3 +1,5 @@
+//OBSOLETE
+
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.subsumption.Behavior;
@@ -23,8 +25,7 @@ public class ObstacleDetection implements Behavior {
 	
 	@Override
 	public boolean takeControl() { 
-		float distance = Robot.rangeSensor.getLastMinRangeAhead();
-		
+	float distance = 0;
 		if (distance < 0.4) {
 			return true;
 		} else {
@@ -42,7 +43,6 @@ public class ObstacleDetection implements Behavior {
 		LCD.clear();
 		LCD.drawString("PILOT TEST 0.1", 2, 0);
 		LCD.drawString("ObstacleDetection", 1, 3);
-		LCD.drawString(String.valueOf(Robot.rangeSensor.getLastMinRangeAhead()) + " m", 2, 4);
 		
 		// Not sure, if the rotation speed can be set
 		Robot.rover.setTravelSpeed(0.005);
