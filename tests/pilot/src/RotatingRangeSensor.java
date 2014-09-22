@@ -1,14 +1,13 @@
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.RegulatedMotor;
 import lejos.robotics.SampleProvider;
-import lejos.robotics.filter.MeanFilter;
 
 
 public class RotatingRangeSensor extends Thread {
 
 	private EV3UltrasonicSensor sensor;
 	private RegulatedMotor motor;
-	private RotatingSensorReadings readings;
+	private RotatingSensorReadings readings = new RotatingSensorReadings();
 	private int fromAngle = -45;
 	private int toAngle = 45;
 	private int accuracy = 45;
@@ -24,10 +23,9 @@ public class RotatingRangeSensor extends Thread {
 	@Override
 	public void run() {
 		SampleProvider averageProvider = sensor.getDistanceMode();
+		float[] sample = new float[averageProvider.sampleSize()];
 		
 		while(true) {
-			float[] sample = new float[averageProvider.sampleSize()];
-			
 			for(int i = 0; fromAngle + i * accuracy <= toAngle; i++) {
 				int angle = fromAngle + i * accuracy;
 				
@@ -67,5 +65,6 @@ public class RotatingRangeSensor extends Thread {
 	
 	public void turnOff() {
 		sensor.close();
+		motor.rotateTo(0);
 	}
 }

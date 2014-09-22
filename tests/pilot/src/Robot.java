@@ -10,7 +10,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
 
-//Fucking lejos
+
 public class Robot {
 
 	public static RotatingRangeSensor rangeSensor;
@@ -52,9 +52,11 @@ public class Robot {
 		LCD.drawString("ENTER - start", 1, 3);
 		Button.LEDPattern(4);
 		
-		Button.waitForAnyPress();
+		if (Button.waitForAnyPress() == Button.ID_ESCAPE) {
+			Robot.rangeSensor.turnOff();
+			System.exit(0);
+		}
 		LCD.clear();
-		// TODO Make it available to exit.
 		
 		arbitrator.start();
 	}
