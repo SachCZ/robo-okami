@@ -21,12 +21,12 @@ public class Robot {
 		rover = new DifferentialPilot(constants.WHEEL_DIAMETR, constants.TRACK_WIDTH,
 				constants.LEFT_MOTOR, constants.RIGHT_MOTOR, reverse);
 		
+		//TODO add bahavior for path finding with given line map
 		Behavior drive = new DriveControl();
-		Behavior detect = new ObstacleDetection(1);
 		Behavior control = new ButtonControl();
 
 		Behavior[] behaviors = {
-			drive, detect, control
+			drive, control
 		};
 		
 		Arbitrator arbitrator = new Arbitrator(behaviors);
@@ -37,6 +37,7 @@ public class Robot {
 		
 		if (Button.waitForAnyPress() == Button.ID_ESCAPE) {
 			System.exit(0);
+
 			
 		}
 		LCD.clear();

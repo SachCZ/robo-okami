@@ -2,6 +2,8 @@ import lejos.hardware.motor.BaseRegulatedMotor;
 
 public class Servo extends Thread{
 	
+	//Important method is get position, everything else is trash :-D
+	
 	int minAngle = constants.SERVO_MIN_ANGLE;
 	int maxAngle = constants.SERVO_MAX_ANGLE;
 	float servoSpeed = constants.SERVO_SPEED;

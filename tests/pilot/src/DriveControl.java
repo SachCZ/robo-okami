@@ -1,3 +1,6 @@
+//TODO Use Navigator insted of pilot (Navigator uses differential pilot)
+//TODO Create class to keep track of the robots position
+
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
 import lejos.robotics.subsumption.Behavior;

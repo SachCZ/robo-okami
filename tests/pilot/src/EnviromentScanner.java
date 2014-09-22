@@ -1,3 +1,4 @@
+//Not working yet
 
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
@@ -24,6 +25,8 @@ public class EnviromentScanner extends Thread {
 				
 			servoPosition = servoRotation.getPosition();
 			distance = (float) sample[0];
+			
+			//TODO fetch samples into some kind of 2D array or something like that
 				
 			Delay.msDelay(50);			
 		}
