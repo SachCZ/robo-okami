@@ -6,13 +6,13 @@ import lejos.utility.Delay;
 
 public class ObstacleDetection implements Behavior {
 
-	boolean _suppressed = false;
+	public static boolean _suppressed = false;
 
 	@Override
 	public boolean takeControl() { 
 		float distance = ANS.rangeSensor.getLastRangeAhead();
 		
-		if (distance < 0.3) {
+		if (distance < Const.STOP_DISTANCE) {
 			return true;
 		} else {
 			return false;
@@ -30,11 +30,11 @@ public class ObstacleDetection implements Behavior {
 		LCD.drawString("ObstacleDetection", 1, 3);
 		LCD.drawString(String.valueOf(ANS.rangeSensor.getLastRangeAhead()) + " m", 2, 4);
 		
-		ANS.rover.setRotateSpeed(30);
+		ANS.rover.setRotateSpeed(Const.TRAVEL_ROTATION_SPEED);
 		RangeReading reading = ANS.rangeSensor.getMaxRangeReadingFromLastSet();
 		
 		// TODO The delay is there to wait for new sensor data, it should be solved differently.
-		if (reading.getRange() < 0.5) {
+		if (reading.getRange() > Const.RETURN_DISTANCE) {
 			ANS.rover.rotate(180);
 			Delay.msDelay(1000);
 		} else {

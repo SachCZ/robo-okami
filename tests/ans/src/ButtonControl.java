@@ -5,7 +5,7 @@ import lejos.robotics.subsumption.Behavior;
 
 public class ButtonControl implements Behavior {
 
-	boolean _suppressed = false;
+	public static boolean _suppressed = false;
 
 	@Override
 	public boolean takeControl() {

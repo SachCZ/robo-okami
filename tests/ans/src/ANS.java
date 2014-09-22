@@ -34,7 +34,8 @@ public class ANS {
 		// Check http://www.cs.ox.ac.uk/people/michael.wooldridge/teaching/robotics/lect05.pdf
 		poseProvider = new OdometryPoseProvider(rover); 
 
-		rangeSensor = new RotatingRangeSensor(new EV3UltrasonicSensor(port[0]), servoMotor, -45, 45, 45);		
+		rangeSensor = new RotatingRangeSensor(new EV3UltrasonicSensor(port[0]), servoMotor,
+				Const.RANGE_SENSOR_FROM_ANGLE, Const.RANGE_SENSOR_TO_ANGLE, 45);		
 		// rangeSensor.setDaemon(true);
 		rangeSensor.start();
 		

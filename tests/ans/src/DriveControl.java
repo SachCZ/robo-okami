@@ -5,7 +5,7 @@ import lejos.robotics.subsumption.Behavior;
 
 public class DriveControl implements Behavior {
 
-	boolean _suppressed = false;
+	public static boolean _suppressed = false;
 
 	@Override
 	public boolean takeControl() {
@@ -19,7 +19,7 @@ public class DriveControl implements Behavior {
 		
 		Button.LEDPattern(1);
 		
-		ANS.rover.setTravelSpeed(0.15);
+		ANS.rover.setTravelSpeed(Const.TRAVEL_SPEED);
 		ANS.rover.forward();
 		
 		LCD.clear();
@@ -30,7 +30,7 @@ public class DriveControl implements Behavior {
 			if (ANS.rangeSensor.recalculateBestWay()) {
 				RangeReading reading = ANS.rangeSensor.getMaxRangeReadingFromLastSet();
 				int turnAngle = 180-reading.getAngle()*2;
-				ANS.rover.arc(0.3, turnAngle);
+				ANS.rover.arc(Const.TRAVEL_ROTATION_RADIUS, turnAngle);
 				ANS.rover.forward();
 			}
 			// Do not exit until it is suppressed.

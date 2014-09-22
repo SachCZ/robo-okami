@@ -8,11 +8,8 @@ public class RotatingRangeSensor extends Thread {
 	private EV3UltrasonicSensor sensor;
 	private BaseRegulatedMotor motor;
 	private RangeReadings readings = new RangeReadings();
-	private int fromAngle = -90;
-	private int toAngle = 90;
-	private int accuracy = 30;
-	boolean rotationDir = true;
-	boolean wayRecalculated = false;
+	private int fromAngle = Const.RANGE_SENSOR_FROM_ANGLE, toAngle = Const.RANGE_SENSOR_TO_ANGLE, accuracy = 30;
+	private boolean rotationDir = true, wayRecalculated = false;
 
 	RotatingRangeSensor(EV3UltrasonicSensor sensor, BaseRegulatedMotor motor, int fromAngle, int toAngle, int accuracy) {
 		this.sensor = sensor;

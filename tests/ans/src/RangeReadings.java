@@ -54,6 +54,7 @@ public class RangeReadings extends ArrayList<RangeReading> {
 		return index;
 	}
 	
+	// TODO Return the one closest to the zero angle
 	public int getLastRangeReadingIndexByAngle(int angle) {		
 		for(int i = size() - 1; i >= 0; i--) {
 			int readingsAngle = get(i).getAngle();
