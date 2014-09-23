@@ -1,14 +1,13 @@
-//TODO Use Navigator insted of pilot (Navigator uses differential pilot)
+//TODO Use Navigator instead of pilot (Navigator uses differential pilot)
 //TODO Create class to keep track of the robots position
 
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.robotics.subsumption.Behavior;
 
 
-public class DriveControl implements Behavior {
+public class DriveControl extends AbstractBehavior {
 
-	boolean _suppressed = false;
+	public static boolean _suppressed = false;
 
 	@Override
 	public boolean takeControl() {
@@ -20,9 +19,11 @@ public class DriveControl implements Behavior {
 	public void action() {
 		_suppressed = false;
 		
+		setLastBehavior(this.getClass().getName());
+		
 		Button.LEDPattern(1);
 		
-		Robot.rover.setTravelSpeed(0.1);
+		Robot.rover.setTravelSpeed(Const.TRAVEL_SPEED);
 		Robot.rover.forward();
 		
 		LCD.clear();
