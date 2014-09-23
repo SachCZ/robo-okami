@@ -1,34 +1,74 @@
-//Not working yet
-
 import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
-import lejos.utility.Delay;
+import lejos.robotics.navigation.Move;
+import lejos.robotics.navigation.MoveListener;
+import lejos.robotics.navigation.MoveProvider;
 
-public class EnviromentScanner extends Thread {
+
+public class EnviromentScanner extends Thread implements MoveListener {
 	
-	Servo servoRotation = new Servo();
-	EV3UltrasonicSensor sensor = new EV3UltrasonicSensor(constants.US_SENSOR_PORT);
-	float servoPosition;
-	float distance;
+	private Servo servoRotation = new Servo();
+	private EV3UltrasonicSensor rangeSensor = new EV3UltrasonicSensor(Const.PORT_US_SENSOR);
+	
+	// Pomocné a doèasné
+	private float lastReadingAhead;
+	private float lastBestReadingRange, lastBestReadingAngle;
+	// KONEC Pomocné a doèasné
 	
 	@Override
-	public void run(){
+	public void run() {
+		Robot.rover.addMoveListener(this);
 		servoRotation.start();
 		
-		
-		SampleProvider sampleProvider = sensor.getDistanceMode();
-			
+		SampleProvider sampleProvider = rangeSensor.getDistanceMode();
 		float[] sample = new float[sampleProvider.sampleSize()];
-		// TODO Maybe add some filter.
+		
 		while(true) {
 			sampleProvider.fetchSample(sample, 0);
-				
-			servoPosition = servoRotation.getPosition();
-			distance = (float) sample[0];
 			
-			//TODO fetch samples into some kind of 2D array or something like that
-				
-			Delay.msDelay(50);			
+			float servoPosition = servoRotation.getPosition();
+			float distance = (float) sample[0];
+
+			// Pomocné a doèasné
+			if (Math.abs(servoPosition) < 5) {
+				lastReadingAhead = distance;
+			}
+			
+			if (lastBestReadingRange < distance) {
+				lastBestReadingRange = distance;
+				lastBestReadingAngle = servoPosition;
+			}
+			// KONEC Pomocné a doèasné
 		}
+	}
+
+	// Pomocné a doèasné
+	public float lastReadingAhead() {
+		return lastReadingAhead;
+	}
+	
+	public float[] lastBestReading() {
+		return new float[]{lastBestReadingRange, lastBestReadingAngle};
+	}
+	
+	public void clearBestReadings() {
+		lastBestReadingRange = 0;
+		lastBestReadingAngle = 0;
+	}
+
+	@Override
+	public void moveStarted(Move event, MoveProvider mp) {
+		clearBestReadings();
+	}
+
+	@Override
+	public void moveStopped(Move event, MoveProvider mp) {
+		clearBestReadings();
+	}
+	// KONEC Pomocné a doèasné
+	
+	public void turnOff() {
+		rangeSensor.close();
+		servoRotation.turnOff();
 	}
 }
