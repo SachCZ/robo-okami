@@ -1,55 +1,26 @@
 import lejos.hardware.motor.BaseRegulatedMotor;
 
-public class Servo extends Thread{
+public class Servo extends Thread {
 	
-	//Important method is get position, everything else is trash :-D
-	
-	int minAngle = constants.SERVO_MIN_ANGLE;
-	int maxAngle = constants.SERVO_MAX_ANGLE;
-	float servoSpeed = constants.SERVO_SPEED;
-	BaseRegulatedMotor servo;
-	
-	
-	//The motor still does that strange sound...
+	private BaseRegulatedMotor servo = Const.MOTOR_SERVO;
+	private boolean _suppressed = false;
 
 	@Override
 	public void run() {
-		servo = constants.SERVO_MOTOR_PORT;
-		while(true) {
-			servo.rotateTo(minAngle);
-			servo.rotateTo(maxAngle);
+		servo.resetTachoCount();
+		
+		while(!_suppressed) {
+			servo.rotateTo(Const.SERVO_MIN_ANGLE);
+			if (!_suppressed) servo.rotateTo(Const.SERVO_MAX_ANGLE);
 		}
 	}
 
 	public float getPosition() {
-		return servo.getPosition();
+		return servo.getTachoCount();
 	}
 	
 	public void turnOff() {
+		_suppressed = true;
 		servo.rotateTo(0);
-		servo.stop();
 	}
-	public int getMinAngle(){
-		return minAngle;
-	}
-	
-	public int getMaxAngle(){
-		return minAngle;
-	}
-	public float getServoSpeed(){
-		return servoSpeed;
-	}
-	
-	public void setMinAngle(int minAngle){
-		this.minAngle = minAngle;
-	}
-	
-	public void setMaxAngle(int maxAngle){
-		this.maxAngle = maxAngle;
-	}
-	
-	public void setServoSpeed(float speed){
-		this.servoSpeed = speed;
-	}
-
 }
