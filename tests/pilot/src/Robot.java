@@ -1,7 +1,6 @@
 import lejos.hardware.Button;
 import lejos.hardware.lcd.LCD;
-import lejos.hardware.port.Port;
-import lejos.hardware.port.SensorPort;
+import lejos.robotics.localization.OdometryPoseProvider;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.subsumption.Arbitrator;
 import lejos.robotics.subsumption.Behavior;
@@ -10,23 +9,25 @@ import lejos.robotics.subsumption.Behavior;
 public class Robot {
 
 	public static DifferentialPilot rover;
-
-	static Port[] port = {SensorPort.S1, SensorPort.S2, SensorPort.S3, SensorPort.S4};
-
-	static boolean reverse = false;
-	
-
+	public static OdometryPoseProvider poseProvider;
+	public static EnviromentScanner envScanner;
+		
 	public static void main(String[] args) {
 		
-		rover = new DifferentialPilot(constants.WHEEL_DIAMETR, constants.TRACK_WIDTH,
-				constants.LEFT_MOTOR, constants.RIGHT_MOTOR, reverse);
+		envScanner = new EnviromentScanner();
+		rover = new DifferentialPilot(Const.WHEEL_DIAMETR, Const.TRACK_WIDTH,
+				Const.MOTOR_LEFT_DRIVE, Const.MOTOR_RIGHT_DRIVE, false);
+		poseProvider = new OdometryPoseProvider(rover);
 		
-		//TODO add bahavior for path finding with given line map
+		envScanner.start();
+		
+		//TODO add behavior for path finding with given line map
 		Behavior drive = new DriveControl();
+		Behavior impact = new ImpactControl();
 		Behavior control = new ButtonControl();
 
 		Behavior[] behaviors = {
-			drive, control
+			drive, impact, control
 		};
 		
 		Arbitrator arbitrator = new Arbitrator(behaviors);
@@ -36,13 +37,11 @@ public class Robot {
 		Button.LEDPattern(4);
 		
 		if (Button.waitForAnyPress() == Button.ID_ESCAPE) {
+			Robot.envScanner.turnOff();
 			System.exit(0);
-
-			
 		}
 		LCD.clear();
 		
 		arbitrator.start();
 	}
-
 }

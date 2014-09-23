@@ -5,7 +5,7 @@ import lejos.robotics.subsumption.Behavior;
 
 public class ButtonControl implements Behavior {
 
-	boolean _suppressed = false;
+	public static boolean _suppressed = false;
 
 	@Override
 	public boolean takeControl() {
@@ -21,6 +21,7 @@ public class ButtonControl implements Behavior {
 		LCD.drawString("ESC - exit", 3, 3);
 		
 		if (Button.waitForAnyPress() == Button.ID_ESCAPE) {
+			Robot.envScanner.turnOff();
 			System.exit(0);
 		} else {
 			return;
