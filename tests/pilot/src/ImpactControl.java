@@ -11,7 +11,8 @@ public class ImpactControl extends AbstractBehavior {
 	public boolean takeControl() {
 		float distance = Robot.envScanner.lastReadingAhead();
 		
-		if (distance != -1 && distance < Const.STOP_DISTANCE) {
+		//TODO chane STOP DISTNCE to be byte and in cm
+		if (distance > 0 && distance < Const.STOP_DISTANCE) {
 			return true;
 		} else {
 			return false;
@@ -45,7 +46,7 @@ public class ImpactControl extends AbstractBehavior {
 				saveRotationAngle(0);
 			} else {
 				saveRotationAngle(reading[1]);
-				System.out.println("SAVE:" + String.valueOf(reading[1]));
+				System.out.println("Distance:" + String.valueOf(reading[0]));
 			}
 			Robot.rover.rotate(reading[1]);
 			Delay.msDelay(1000);

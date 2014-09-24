@@ -14,9 +14,10 @@ public class Servo extends Thread {
 			if (!_suppressed) servo.rotateTo(Const.SERVO_MAX_ANGLE);
 		}
 	}
-
-	public float getPosition() {
-		return servo.getTachoCount();
+	
+	// It is now returning byte for sake of saving memory
+	public byte getPosition() {
+		return (byte) servo.getTachoCount();
 	}
 	
 	public void turnOff() {

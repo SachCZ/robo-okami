@@ -22,4 +22,5 @@ public class Const {
 	
 	public static final double STOP_DISTANCE = 0.4; // m
 	public static final double RETURN_DISTANCE = 0.3; // m
+	public static final int NUMBER_OF_RECORDS = 3;
 }
