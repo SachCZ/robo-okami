@@ -20,7 +20,7 @@ public class Const {
 	public static final double TRAVEL_SPEED = 0.2; // m/s
 	public static final int TRAVEL_ROTATION_SPEED = 50; // DEG/s
 	
-	public static final double STOP_DISTANCE = 0.4; // m
-	public static final double RETURN_DISTANCE = 0.3; // m
-	public static final int NUMBER_OF_RECORDS = 3;
+	public static final double STOP_DISTANCE = 40; // cm
+	public static final double RETURN_DISTANCE = 20; // cm
+	public static final int NUMBER_OF_RECORDS = 1;
 }
